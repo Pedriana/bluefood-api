@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
 		xmlns:th="http://www.thymeleaf.org"
-		xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+		xmlns:layout="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" layout:decorate="~{layout}">
 
 	<body>
 		<!--	add a tela de layout-->
@@ -16,14 +16,17 @@
 						<input type="button" value="Entrar" onClick="location.href = 'clienteHome.html';"/>
 					</fieldset>
 				</form>
-				<br>
+				<br/>
 
 				<div id="mensagemDeErro">
 					Aqui vai um exemplo de mensagem de erro
 				</div><br/>
 
-				<input type="button" value="Gostaria de criar a minha conta de usuário" onClick="location.href='clienteCadastro.html';"/>
+				<form method="get" th:action="@{/public/cliente/new}">
+					<input type="submit" value="Gostaria de criar a minha conta de cliente"/>
+				</form>
 				<br/>
+
 				<input type="button" value="Gostaria de criar a minha conta de restaurante" onClick="location.href='restauranteCadastro.html';"/>
 			</div>
 		</div>
