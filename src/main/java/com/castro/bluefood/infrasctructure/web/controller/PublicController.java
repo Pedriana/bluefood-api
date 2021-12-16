@@ -1,6 +1,7 @@
 package com.castro.bluefood.infrasctructure.web.controller;
 
 import com.castro.bluefood.application.ClienteService;
+import com.castro.bluefood.application.ValidationException;
 import com.castro.bluefood.domain.cliente.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,8 +37,12 @@ public class PublicController {
             Model model){
 
         if(!errors.hasErrors()){
-            clienteService.saveCliente(c);
-            model.addAttribute("msg","Cliente salvo com sucesso!");
+            try {
+                clienteService.saveCliente(c);
+                model.addAttribute("msg","Cliente salvo com sucesso!");
+            }catch (ValidationException e){
+                errors.rejectValue("email",null,e.getMessage());
+            }
         }
 
         ControllerHelper.setEditMode(model,false);

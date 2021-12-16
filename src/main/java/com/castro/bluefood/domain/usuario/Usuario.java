@@ -1,5 +1,6 @@
 package com.castro.bluefood.domain.usuario;
 
+import com.castro.bluefood.util.StringUtils;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,4 +43,8 @@ public class Usuario implements Serializable {
     @Pattern(regexp = "[0-9]{10,11}",message = "O telefone possui formato inválido")
     @Column(length = 11,nullable = false)
     private String telefone;
+
+    public void encryptPassword(){
+        this.senha= StringUtils.encrypt(this.senha);
+    }
 }

@@ -8,12 +8,36 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClienteService {
 
-    //Autowired - cria uma instância
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public void saveCliente(Cliente cliente){
-            clienteRepository.save(cliente);
+    public void saveCliente(Cliente c) throws ValidationException{
+        if(!validateEmail(c.getEmail(),c.getId())){//!false
+            System.out.println("Erro na validação");
+            throw new ValidationException("O email está duplicado");
+        }
+
+        if(c.getId()!=null){
+            Cliente clienteDB = clienteRepository.findById(c.getId()).orElseThrow();
+            c.setSenha(clienteDB.getSenha());
+        }else{
+            c.encryptPassword();
+        }
+        System.out.println("SEM Erro na validação");
+        clienteRepository.save(c);
     }
 
+    private boolean validateEmail(String email,Integer id){
+        Cliente c = clienteRepository.findByEmail(email);// sim
+
+        if(c!=null){ // sim
+            if(id==null){ //sim
+                return false;
+            }
+            if(!c.getId().equals(id)){
+                return false;
+            }
+        }
+        return true;
+    }
 }
