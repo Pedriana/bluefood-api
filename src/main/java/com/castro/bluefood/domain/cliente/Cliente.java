@@ -8,14 +8,16 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+@SuppressWarnings("serial")
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true,callSuper = true)
 @Entity
-@SuppressWarnings("serial")
+@Table(name = "cliente")
 public class Cliente extends Usuario {
 
     @NotBlank(message = "O CPF não pode ser vazio")

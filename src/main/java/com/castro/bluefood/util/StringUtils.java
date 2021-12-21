@@ -17,7 +17,7 @@ public class StringUtils {
         if(isEmpty(rawString)){
             return null;
         }
-        //codificador de senha
+//        codificador de senha
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return encoder.encode(rawString);
     }
