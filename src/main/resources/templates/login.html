@@ -1,40 +1,34 @@
 <!DOCTYPE html>
 <html
 		xmlns:th="http://www.thymeleaf.org"
-		xmlns:layout="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" layout:decorate="~{layout}">
+		xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
 
-	<body>
-		<!--	add a tela de layout-->
-		<div layout:fragment="content">
-			<div>
-				<img th:src="@{/images/bf_iconeUsuario.png}" id="imgIconeUsuario"/>
-				<h1>Autenticação</h1>
-				<form method="post" action="">
-					<fieldset>
-						<input type="text" name="email" placeholder="E-mail..."/>
-						<input type="password" name="senha" placeholder="Senha..."/>
-						<input type="button" value="Entrar" onClick="location.href = 'clienteHome.html';"/>
-					</fieldset>
-				</form>
-				<br/>
+<body>
+<div layout:fragment="content">
+	<div>
+		<img th:src="@{/images/bf_iconeUsuario.png}" id="imgIconeUsuario" />
+		<h1>Autenticação</h1>
+		<form method="post" th:action="@{/login}">
+			<fieldset>
+				<input type="text" name="username" placeholder="E-mail..." />
+				<input type="password" name="password" placeholder="Senha..." />
+				<input type="submit" value="Entrar" />
+			</fieldset>
+		</form>
+		<br />
 
-				<div id="mensagemDeErro">
-					Aqui vai um exemplo de mensagem de erro
-				</div><br/>
+		<div id="mensagemDeErro" th:if="${msg != null}">
+			<span th:text="${msg}"></span>
+		</div><br />
 
-				<form method="get" th:action="@{/public/cliente/new}">
-					<input type="submit" value="Gostaria de criar a minha conta de cliente"/>
-				</form>
+		<form method="get" th:action="@{/public/cliente/new}">
+			<input type="submit" value="Gostaria de criar a minha conta de cliente" />
+		</form>
 
-				<form method="get" th:action="@{/public/restaurante/new}">
-					<input type="submit" value="Gostaria de criar a minha conta de restaurante"/>
-				</form>
-
-				<br/>
-
-<!--				<input type="button" value="Gostaria de criar a minha conta de restaurante" onClick="location.href='restauranteCadastro.html';"/>-->
-			</div>
-		</div>
-	</body>
+		<form method="get" th:action="@{/public/restaurante/new}">
+			<input type="submit" value="Gostaria de criar a minha conta de restaurante" />
+		</form>
+	</div>
+</div>
+</body>
 </html>
-
