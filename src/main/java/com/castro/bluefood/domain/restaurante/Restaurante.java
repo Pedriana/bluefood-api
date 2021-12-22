@@ -1,6 +1,7 @@
 package com.castro.bluefood.domain.restaurante;
 
 import com.castro.bluefood.domain.usuario.Usuario;
+import com.castro.bluefood.infrasctructure.web.validator.UploadConstraint;
 import com.castro.bluefood.util.FileType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,6 +32,8 @@ public class Restaurante extends Usuario {
     private String logotipo;
 
     //não iremos persistir em tabela (fica só em memória): transiente
+//    @UploadConstraint(acceptedTypes = {FileType.PNG,FileType.JPG})
+    @UploadConstraint(acceptedTypes = FileType.JPG,message = "O arquivo não é válido")
     private transient MultipartFile logotipoFile;
 
     @NotNull(message = "A taxa de entrega não pode ser vazia.")
