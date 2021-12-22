@@ -66,7 +66,7 @@
 				</form>
 				<br/>
 
-				<input type="button" value="Voltar" onClick="location.href='index.html';">
+				<input type="button" value="Voltar" th:onclick="'location.href=\'' + @{/cliente/home} + '\';'" />
 			</div>
 	</div>
 
