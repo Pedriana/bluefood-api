@@ -1,4 +1,4 @@
-package com.castro.bluefood.application;
+package com.castro.bluefood.application.sevice;
 
 import com.castro.bluefood.util.IOUtils;
 import org.springframework.beans.factory.annotation.Value;

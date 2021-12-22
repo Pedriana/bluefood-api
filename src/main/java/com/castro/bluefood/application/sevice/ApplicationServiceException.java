@@ -1,4 +1,4 @@
-package com.castro.bluefood.application;
+package com.castro.bluefood.application.sevice;
 
 public class ApplicationServiceException extends RuntimeException{
 

@@ -1,10 +1,9 @@
 package com.castro.bluefood.infrasctructure.web.controller;
 
-import com.castro.bluefood.application.ClienteService;
-import com.castro.bluefood.application.RestauranteService;
-import com.castro.bluefood.application.ValidationException;
+import com.castro.bluefood.application.sevice.ClienteService;
+import com.castro.bluefood.application.sevice.RestauranteService;
+import com.castro.bluefood.application.sevice.ValidationException;
 import com.castro.bluefood.domain.cliente.Cliente;
-import com.castro.bluefood.domain.restaurante.CategoriaRestaurante;
 import com.castro.bluefood.domain.restaurante.CategoriaRestauranteRepository;
 import com.castro.bluefood.domain.restaurante.Restaurante;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping(path = "/public")

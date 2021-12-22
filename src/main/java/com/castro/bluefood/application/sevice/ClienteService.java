@@ -1,4 +1,4 @@
-package com.castro.bluefood.application;
+package com.castro.bluefood.application.sevice;
 
 import com.castro.bluefood.domain.cliente.Cliente;
 import com.castro.bluefood.domain.cliente.ClienteRepository;
