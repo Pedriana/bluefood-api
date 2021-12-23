@@ -2,7 +2,6 @@ package com.castro.bluefood.infrasctructure.web.controller;
 
 import com.castro.bluefood.domain.restaurante.CategoriaRestaurante;
 import com.castro.bluefood.domain.restaurante.CategoriaRestauranteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.ui.Model;
 
