@@ -36,12 +36,14 @@ public class ClienteService {
 
     private boolean validateEmail(String email,Integer id){
         Restaurante restaurante = restauranteRepository.findByEmail(email);
-        Cliente c = clienteRepository.findByEmail(email);// sim
 
-        if(restaurante==null){
+        if(restaurante!=null){
             return false;
         }
-        if(c!=null){ // sim
+
+        Cliente c = clienteRepository.findByEmail(email);// sim
+
+        if(c!=null){
             if(id==null){ //sim
                 return false;
             }
