@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html
 		xmlns:th="http://www.thymeleaf.org"
 		xmlns:layout="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" layout:decorate="~{layout}">
@@ -53,7 +53,7 @@
 						</div>
 						<br /><br />
 
-						<label for="tempoEntrega">Tempo de entrega (mín.): </label><br />
+						<label for="tempoEntrega">Tempo de entrega (min.): </label><br />
 						<input type="text" id="tempoEntrega" name="tempoEntrega" placeholder="Tempo de Entrega..." th:field="*{tempoEntregaBase}" th:classappend="${#fields.hasErrors('tempoEntregaBase')} ? 'inputError' : ''" /><br />
 						<div th:if="${#fields.hasErrors('tempoEntregaBase')}">
 							<span th:errors="*{tempoEntregaBase}"></span>
