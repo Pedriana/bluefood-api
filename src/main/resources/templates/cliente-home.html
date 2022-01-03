@@ -6,31 +6,31 @@ th:with="link=@{/cliente/home}">
 <!-- recebendo a variável ${link} como paramentro em cliente-home: add th:with="link=@{/cliente/home}>-->
 <body>
 <div layout:fragment="content">
-<!--  <div id="divLogotipoSistema">-->
-<!--    <span id="spanAuxiliarDeAlinhamentoVertical"></span>-->
-<!--    <a href="/">-->
-<!--      <img src="images/bf_logotipoSistema.png" id="imgLogotipoSistema">-->
-<!--    </a>-->
-<!--  </div>-->
-  <div>
-    <h1>É hora de rangar!</h1>
-    <form method="post" action="clienteBusca.html">
-      <fieldset>
-        <input type="text" name="email" placeholder="Buscar por...">
-        <input type="submit" value="Procurar">
-      </fieldset>
-    </form>
-    <br/>
-  </div>
+    <form method="get" th:object="${searchFilter}" th:action="@{/cliente/search}" id="form">
+        <input type="hidden" th:field="*{searchType}" id="searchType">
+        <input type="hidden" th:field="*{categoriaId}" id="categoriaId">
+        <div>
+          <h1>É hora de rangar!</h1>
+          <!-- th:object="${searchFilter}" - está no model como searchFilter (ClienteController) -->
+            <fieldset>
+              <!--        th:field="*{texto}": texto é o atributo da classe SearchFilter que está dentro do th:object="${searchFilter}"  -->
+              <input type="text" th:field="*{texto}" placeholder="Buscar por...">
+              <!--  searchRest(null) define o tipo de busca: pela caixa de texto ou clicando nos ícones-->
+              <input type="button" value="Procurar" onclick="searchRest(null);">
+            </fieldset>
+          <br/>
+        </div>
 
-  <div id="divCategoriasComidaGeral">
-    <div id="divCategoriasComidaOpcao" th:each="categoria : ${categorias}">
-      <a href="#">
-        <img th:src="@{/images/categoria/}+${categoria.imagem}" id="imgCategoriaComida2"><br/>
-        <span th:text="${categoria.nome}"></span>
-      </a>
-    </div>
-  </div>
+        <div id="divCategoriasComidaGeral">
+          <div id="divCategoriasComidaOpcao" th:each="categoria : ${categorias}">
+<!--            pode tb submeter formulário usando click-->
+            <a href="#" th:onclick="'searchRest(' + ${categoria.id} + ');'">
+              <img th:src="@{/images/categoria/}+${categoria.imagem}" id="imgCategoriaComida2"><br/>
+              <span th:text="${categoria.nome}"></span>
+            </a>
+          </div>
+        </div>
+    </form>
 
   <div>
     <h1>Últimos pedidos</h1>

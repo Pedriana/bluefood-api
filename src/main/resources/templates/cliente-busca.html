@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}"
+	  th:with="link=@{/cliente/home}">
+
+<!-- recebendo a variável ${link} como paramentro em cliente-home: add th:with="link=@{/cliente/home}>-->
+<body>
+	<div layout:fragment="content">
+		<form method="get" th:object="${searchFilter}" th:action="@{/cliente/search}" id="form">
+			<input type="hidden" th:field="*{searchType}" id="searchType">
+			<input type="hidden" th:field="*{categoriaId}" id="categoriaId">
+			<div>
+				<h1>É hora de rangar!</h1>
+				<!-- th:object="${searchFilter}" - está no model como searchFilter (ClienteController) -->
+				<fieldset>
+					<!--        th:field="*{texto}": texto é o atributo da classe SearchFilter que está dentro do th:object="${searchFilter}"  -->
+					<input type="text" th:field="*{texto}" placeholder="Buscar por...">
+					<!--  searchRest(null) define o tipo de busca: pela caixa de texto ou clicando nos ícones-->
+					<input type="button" value="Procurar" onclick="searchRest(null);">
+				</fieldset>
+				<br/>
+			</div>
+
+			<div id="divCategoriasComidaGeral">
+				<div id="divCategoriasComidaOpcao" th:each="categoria : ${categorias}">
+					<!--            pode tb submeter formulário usando click-->
+					<a href="#" th:onclick="'searchRest(' + ${categoria.id} + ');'">
+						<img th:src="@{/images/categoria/}+${categoria.imagem}" id="imgCategoriaComida2"><br/>
+						<span th:text="${categoria.nome}"></span>
+					</a>
+				</div>
+			</div>
+		</form>
+
+			<div>
+				<h1>Resultados</h1>
+				<fieldset id="fieldsetFiltros">
+					<legend>Filtros</legend>
+					<input type="button" value="Entrega grátis"><br/>
+					<input type="button" value="Maior preço" id="inputSelecionado2"> <input type="button" value="Menor preço"> <br/>
+					<input type="button" value="Maior taxa" id="inputSelecionado3"> <input type="button" value="Menor taxa"> <br/>
+					<input type="button" value="Maior tempo"> <input type="button" value="Menor tempo" id="inputSelecionado"> <br/>
+				</fieldset>
+				<br/>
+			</div>
+
+			<div id="divRestaurantesGeral">
+				<div id="divRestaurantesOpcao" th:each="restaurante : ${restaurantes}">
+					<a href="clienteRestaurante.html">
+						<img th:src="@{/images/logotipo/}+${restaurante.logotipo}" id="imgRestauranteOpcao"><br/>
+						<span id="restauranteOpcaoTitulo" th:text="${restaurante.nome}"></span><br/>
+						<span th:text="${restaurante.categoriasAsText}"></span><br/>
+						<span th:text="'Tempo médio de entrega:' + ${restaurante.tempoEntregaBase} + 'm'"></span><br/>
+<!--						timeleaf tem um formatador de moedas: #numbers.formatCurrency -->
+						<span th:text="'Taxa de entrega: R$'+ ${#numbers.formatCurrency(restaurante.taxaEntrega)}"></span><br/>
+					</a>
+					<br/><br/>
+				</div>
+			</div>
+		<div th:if="${restaurantes.size()==0}">
+			<span>Nenhum restaurante encontrado.</span>
+			<br/>
+		</div>
+		<br/>
+		<input type="button" value="Voltar" th:onClick="'location.href=\''+@{/cliente/home}+'\';'">
+
+	</div>>
+</body>
+</html>
+

@@ -3,6 +3,7 @@ package com.castro.bluefood.domain.restaurante;
 import com.castro.bluefood.domain.usuario.Usuario;
 import com.castro.bluefood.infrasctructure.web.validator.UploadConstraint;
 import com.castro.bluefood.util.FileType;
+import com.castro.bluefood.util.StringUtils;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @SuppressWarnings("serial")
@@ -47,7 +49,8 @@ public class Restaurante extends Usuario {
     private Integer tempoEntregaBase;
 
     //manyToMany - Restaurantexcategorias
-    @ManyToMany
+    //fetch = FetchType.EAGER: pra poder carregar as categorias junto com os dados do restaurante, fazer isso só quando for necessário
+    @ManyToMany(fetch = FetchType.EAGER)
     //tabela extra
     @JoinTable(
             name = "restaurante_has_categoria",
@@ -70,5 +73,14 @@ public class Restaurante extends Usuario {
         }
         //getContentType() o navegador fornece
         this.logotipo=String.format("%04d-logo.%s",getId(), FileType.of(logotipoFile.getContentType()).getExtension());
+    }
+
+    public String getCategoriasAsText(){
+        Set<String> strings = new LinkedHashSet<>();
+
+        for (CategoriaRestaurante categoria:categorias){
+            strings.add(categoria.getNome());
+        }
+        return StringUtils.concatenate(strings);
     }
 }

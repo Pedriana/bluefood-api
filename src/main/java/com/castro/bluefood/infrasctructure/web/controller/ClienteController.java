@@ -1,11 +1,14 @@
 package com.castro.bluefood.infrasctructure.web.controller;
 
 import com.castro.bluefood.application.sevice.ClienteService;
+import com.castro.bluefood.application.sevice.RestauranteService;
 import com.castro.bluefood.application.sevice.ValidationException;
 import com.castro.bluefood.domain.cliente.Cliente;
 import com.castro.bluefood.domain.cliente.ClienteRepository;
 import com.castro.bluefood.domain.restaurante.CategoriaRestaurante;
 import com.castro.bluefood.domain.restaurante.CategoriaRestauranteRepository;
+import com.castro.bluefood.domain.restaurante.Restaurante;
+import com.castro.bluefood.domain.restaurante.SearchFilter;
 import com.castro.bluefood.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -33,11 +36,17 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private RestauranteService restauranteService;
+
     @GetMapping(path = "/home")
     public String home(Model model){
 
         List<CategoriaRestaurante> categorias = categoriaRestauranteRepository.findAll(Sort.by("nome"));
         model.addAttribute("categorias",categorias);
+
+        //pra estar disponível na home desde o início
+        model.addAttribute("searchFilter",new SearchFilter());
 
         return "cliente-home";
     }
@@ -75,4 +84,20 @@ public class ClienteController {
         return "cliente-cadastro";
     }
 
+    @GetMapping(path="/search")
+    public String search(
+                @ModelAttribute("searchFilter") SearchFilter filter,
+                Model model){
+        filter.processFilter();
+
+        List<Restaurante> restaurantes = restauranteService.search(filter);
+
+        model.addAttribute("restaurantes",restaurantes);
+//
+        //para ter categorias em cliente-busca
+        ControllerHelper.addCategoriasToRequest(categoriaRestauranteRepository,model);
+
+        model.addAttribute("searchFilter",filter);
+        return "cliente-busca";
+    }
 }

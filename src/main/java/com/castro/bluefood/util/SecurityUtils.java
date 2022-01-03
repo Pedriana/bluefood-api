@@ -13,7 +13,7 @@ public class SecurityUtils {
     public static LoggedUser loggedUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        //AnonymousAuthenticationToken significa que não está logado.
+        //AnonymousAuthenticationToken significa que nÃ£o estÃ¡ logado.
         if(authentication instanceof AnonymousAuthenticationToken){
             return null;
         }
@@ -26,11 +26,11 @@ public class SecurityUtils {
         LoggedUser loggedUser = loggedUser();
 
         if(loggedUser==null){
-            throw  new IllegalStateException("Não existe um usuário logado.");
+            throw  new IllegalStateException("NÃ£o existe um usuÃ¡rio logado.");
         }
 
         if(!(loggedUser.getUsuario() instanceof Cliente)){
-            throw  new IllegalStateException("O usuário logado não é um cliente.");
+            throw  new IllegalStateException("O usuÃ¡rio logado nÃ£o Ã© um cliente.");
         }
 
         return (Cliente) loggedUser.getUsuario();
@@ -40,11 +40,11 @@ public class SecurityUtils {
         LoggedUser loggedUser = loggedUser();
 
         if(loggedUser==null){
-            throw  new IllegalStateException("Não existe um usuário logado.");
+            throw  new IllegalStateException("Nï¿½o existe um usuï¿½rio logado.");
         }
 
         if(!(loggedUser.getUsuario() instanceof Restaurante)){
-            throw  new IllegalStateException("O usuário logado não é um restaurante.");
+            throw  new IllegalStateException("O usuï¿½rio logado nï¿½o ï¿½ um restaurante.");
         }
 
         return (Restaurante) loggedUser.getUsuario();

@@ -4,9 +4,12 @@ import com.castro.bluefood.domain.cliente.Cliente;
 import com.castro.bluefood.domain.cliente.ClienteRepository;
 import com.castro.bluefood.domain.restaurante.Restaurante;
 import com.castro.bluefood.domain.restaurante.RestauranteRepository;
+import com.castro.bluefood.domain.restaurante.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -61,5 +64,18 @@ public class RestauranteService {
             }
         }
         return true;
+    }
+
+    public List<Restaurante> search(SearchFilter filter){
+        List<Restaurante> restaurantes;
+        if(filter.getSearchType()== SearchFilter.SearchType.Texto){
+            restaurantes=restauranteRepository.findByNomeIgnoreCaseContaining(filter.getTexto());
+        }else if(filter.getSearchType()== SearchFilter.SearchType.Categoria){
+            restaurantes=restauranteRepository.findByCategorias_Id(filter.getCategoriaId());
+        }else{
+            throw new IllegalStateException(("O tipo de busca" + filter.getSearchType()+" não é suportado"));
+        }
+
+        return restaurantes;
     }
 }
