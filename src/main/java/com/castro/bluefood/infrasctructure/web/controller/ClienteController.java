@@ -5,10 +5,7 @@ import com.castro.bluefood.application.sevice.RestauranteService;
 import com.castro.bluefood.application.sevice.ValidationException;
 import com.castro.bluefood.domain.cliente.Cliente;
 import com.castro.bluefood.domain.cliente.ClienteRepository;
-import com.castro.bluefood.domain.restaurante.CategoriaRestaurante;
-import com.castro.bluefood.domain.restaurante.CategoriaRestauranteRepository;
-import com.castro.bluefood.domain.restaurante.Restaurante;
-import com.castro.bluefood.domain.restaurante.SearchFilter;
+import com.castro.bluefood.domain.restaurante.*;
 import com.castro.bluefood.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -31,7 +28,13 @@ public class ClienteController {
     private CategoriaRestauranteRepository categoriaRestauranteRepository;
 
     @Autowired
+    private ItemCardapioRepository itemCardapioRepository;
+
+    @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private RestauranteRepository restauranteRepository;
 
     @Autowired
     private RestauranteService restauranteService;
@@ -92,11 +95,46 @@ public class ClienteController {
         List<Restaurante> restaurantes = restauranteService.search(filter);
 
         model.addAttribute("restaurantes",restaurantes);
+        model.addAttribute("cep",SecurityUtils.loggedCliente().getCep());
 //
         //para ter categorias em cliente-busca
         ControllerHelper.addCategoriasToRequest(categoriaRestauranteRepository,model);
 
         model.addAttribute("searchFilter",filter);
         return "cliente-busca";
+    }
+
+    @GetMapping(path = "/restaurante")
+    public String viewRestaurante(@RequestParam("restauranteId") Integer restauranteId,
+                                  @RequestParam(value = "categoria",required = false) String categoria,
+                                  Model model){
+
+        Restaurante restaurante = restauranteRepository.findById(restauranteId).orElseThrow();
+        model.addAttribute("restaurante",restaurante);
+        model.addAttribute("cep",SecurityUtils.loggedCliente().getCep());
+
+        List<String> categorias = itemCardapioRepository.findCategorias(restauranteId);
+        model.addAttribute("categorias",categorias);
+
+        List<ItemCardapio> itensCardapioDestaque;
+        List<ItemCardapio> itensCardapioNaoDestaque;
+
+        if(categoria==null){
+
+            itensCardapioDestaque=itemCardapioRepository.findByRestaurante_IdAndDestaqueOrderByNome(restauranteId,true);
+            itensCardapioNaoDestaque=itemCardapioRepository.findByRestaurante_IdAndDestaqueOrderByNome(restauranteId,false);
+
+        }else {
+
+            itensCardapioDestaque = itemCardapioRepository.findByRestaurante_IdAndDestaqueAndCategoriaOrderByNome(restauranteId, true,categoria);
+            itensCardapioNaoDestaque = itemCardapioRepository.findByRestaurante_IdAndDestaqueAndCategoriaOrderByNome(restauranteId, false,categoria);
+
+        }
+
+        model.addAttribute("itensCardapioDestaque", itensCardapioDestaque);
+        model.addAttribute("itensCardapioNaoDestaque", itensCardapioNaoDestaque);
+        model.addAttribute("categoriaSelecionada",categoria);
+
+        return "cliente-restaurante";
     }
 }
