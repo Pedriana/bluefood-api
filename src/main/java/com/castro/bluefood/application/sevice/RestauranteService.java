@@ -3,12 +3,15 @@ package com.castro.bluefood.application.sevice;
 import com.castro.bluefood.domain.cliente.Cliente;
 import com.castro.bluefood.domain.cliente.ClienteRepository;
 import com.castro.bluefood.domain.restaurante.Restaurante;
+import com.castro.bluefood.domain.restaurante.RestauranteComparator;
 import com.castro.bluefood.domain.restaurante.RestauranteRepository;
 import com.castro.bluefood.domain.restaurante.SearchFilter;
+import com.castro.bluefood.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -75,6 +78,22 @@ public class RestauranteService {
         }else{
             throw new IllegalStateException(("O tipo de busca" + filter.getSearchType()+" não é suportado"));
         }
+        Iterator<Restaurante> it = restaurantes.iterator();
+
+        while ((it.hasNext())){
+            Restaurante restaurante = it.next();
+            double taxaEntrega = restaurante.getTaxaEntrega().doubleValue();
+
+            if((filter.isEntregaGratis() && taxaEntrega>0) || (!filter.isEntregaGratis() && taxaEntrega==0)){
+                it.remove();//por isso estamos usando o iterator
+            }
+
+
+        }
+
+        RestauranteComparator comparator = new RestauranteComparator(filter, SecurityUtils.loggedCliente().getCep());
+
+        restaurantes.sort(comparator);
 
         return restaurantes;
     }

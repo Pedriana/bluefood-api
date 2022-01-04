@@ -30,20 +30,28 @@
 					</a>
 				</div>
 			</div>
-		</form>
 
 			<div>
 				<h1>Resultados</h1>
 				<fieldset id="fieldsetFiltros">
+					<!--&lt;!&ndash;					order.name() é uma propriedade que o enum tem&ndash;&gt;-->
 					<legend>Filtros</legend>
-					<input type="button" value="Entrega grátis"><br/>
-					<input type="button" value="Maior preço" id="inputSelecionado2"> <input type="button" value="Menor preço"> <br/>
-					<input type="button" value="Maior taxa" id="inputSelecionado3"> <input type="button" value="Menor taxa"> <br/>
-					<input type="button" value="Maior tempo"> <input type="button" value="Menor tempo" id="inputSelecionado"> <br/>
+					<input type="button" value="Entrega grátis" th:id="*{entregaGratis} ? 'inputSelecionado' : ''" onclick="setCmd('EntregaGratis')" /><br />
+					<input type="button" value="Maior taxa" th:id="*{order.name()} == 'Taxa' and !*{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MaiorTaxa')" />
+					<input type="button" value="Menor taxa" th:id="*{order.name()} == 'Taxa' and *{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MenorTaxa')" /> <br/>
+					<input type="button" value="Maior tempo" th:id="*{order.name()} == 'Tempo' and !*{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MaiorTempo')" />
+					<input type="button" value="Menor tempo" th:id="*{order.name()} == 'Tempo' and *{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MenorTempo')" /> <br/>
+
+					<input type="hidden" id="entregaGratis" th:field="*{entregaGratis}" />
+					<input type="hidden" id="order" th:field="*{order}" />
+					<input type="hidden" id="asc" th:field="*{asc}" />
+					<input type="hidden" id="cmd" name="cmd" />
 				</fieldset>
+
 				<br/>
 			</div>
 
+		</form>
 			<div id="divRestaurantesGeral">
 				<div id="divRestaurantesOpcao" th:each="restaurante : ${restaurantes}">
 					<a href="clienteRestaurante.html">
