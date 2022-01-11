@@ -49,7 +49,7 @@ public class ItemCardapio implements Serializable {
 
     @NotNull
     @ManyToOne //indica que eh o dono do relacionamento
-    @JoinColumn(name="restaurante_id")//� o nome que vai ser dado pro campo na tabela
+    @JoinColumn(name="restaurante_id")//é o nome que vai ser dado pro campo na tabela
     private Restaurante restaurante;
 
     @UploadConstraint(acceptedTypes = FileType.PNG,message = "O arquivo não é válido.")
