@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}"
+	  th:with="link=@{/cliente/home}">
+
+<!-- recebendo a variável ${link} como paramentro em cliente-home: add th:with="link=@{/cliente/home}>-->
+<body>
+<div layout:fragment="content">
+		<!-- Cabeçalho - Fim -->
+		
+		<div>
+			<h1>SEU PEDIDO</h1>
+			<input type="button" value="Refazer pedido" th:onClick="'location.href=\''+@{/cliente/carrinho/refazerCarrinho}+'?pedidoId='+${pedido.id}+'\';'">
+		</div>
+		
+		
+		<div id="mensagemDeErro">
+			<span th:text="'STATUS:' + ${pedido.status.descricao}"></span>
+		</div><br/>
+		
+		<div>
+			<img th:src="@{/images/logotipo/}+${pedido.restaurante.logotipo}" id="imgRestauranteBusca">
+		</div>
+		<br/><br/>
+		
+		
+
+		<div th:each="item : ${pedido.itensPedido}">
+			<span id="restauranteOpcaoTitulo2" th:text="${item.itemCardapio.nome}"></span><br/>
+			<span id="restauranteOpcaoTaxa3" th:text="'Qtd:'+${item.quantidade}"></span><br/>
+			<span id="restauranteOpcaoTaxa4" th:text="${item.observacoes}"></span><br/>
+			<span id="restauranteOpcaoTaxa5" th:text="${#numbers.formatCurrency(item.preco)}"></span>
+		</div>
+		<br/><br/>
+
+		<div>
+			<span id="restauranteOpcaoTitulo4">Taxa de entrega</span><br/>
+			<span id="restauranteOpcaoTaxa9" th:text="${#numbers.formatCurrency(pedido.taxaEntrega)}"></span>
+		</div>
+		<br/><br/>
+
+		<div>
+			<span id="restauranteOpcaoTitulo">Total</span><br/>
+			<span id="restauranteOpcaoTaxa" th:text="${#numbers.formatCurrency(pedido.total)}"></span>
+		</div>
+		<br/><br/>
+		
+		<br/><br/>
+		<input type="button" value="Voltar" th:onClick="'location.href=\''+@{/cliente/home}+'\';'">
+
+</div>
+	</body>
+</html>
+

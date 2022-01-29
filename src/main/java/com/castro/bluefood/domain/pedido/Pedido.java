@@ -36,6 +36,18 @@ public class Pedido implements Serializable {
         int ordem;
         String descricao;
         boolean ultimo;//indica se é o último status
+
+        public String getDescricao(){
+            return descricao;
+        }
+
+        public int getOrdem(){
+            return ordem;
+        }
+
+        public boolean isUltimo() {
+            return ultimo;
+        }
     }
 
     @Id
@@ -44,6 +56,9 @@ public class Pedido implements Serializable {
 
     @NotNull
     private LocalDateTime data;
+
+    @NotNull
+    private Status status;
 
     @NotNull
     //*pedidos -> 1 cliente
@@ -60,9 +75,13 @@ public class Pedido implements Serializable {
     private BigDecimal subtotal;
 
     @NotNull
+    @Column(name = "taxa_entrega")
+    private BigDecimal taxaEntrega;
+
+    @NotNull
     private BigDecimal total;
 
-    @OneToMany(mappedBy = "id.pedido")
+    @OneToMany(mappedBy = "id.pedido",fetch = FetchType.EAGER)
     private Set<ItemPedido> itensPedido;
 
 }

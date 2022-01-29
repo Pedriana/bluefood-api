@@ -1,7 +1,6 @@
 package com.castro.bluefood.infrasctructure.web.controller;
 
-import com.castro.bluefood.domain.pedido.Carrinho;
-import com.castro.bluefood.domain.pedido.RestauranteDiferenteException;
+import com.castro.bluefood.domain.pedido.*;
 import com.castro.bluefood.domain.restaurante.ItemCardapio;
 import com.castro.bluefood.domain.restaurante.ItemCardapioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,10 @@ public class CarrinhoController {
 
     @Autowired
     private ItemCardapioRepository itemCardapioRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
 
     //@ModelAttribute("carrinho") - pra quando eu precisar acessar o carrinho
     @ModelAttribute("carrinho")
@@ -70,6 +73,23 @@ public class CarrinhoController {
         }
 
         return "cliente-carrinho";
+    }
+
+    @GetMapping(path = "/refazerCarrinho")
+    public String refazerCarrinho(
+            @RequestParam("pedidoId") Integer pedidoId,
+            @ModelAttribute("carrinho") Carrinho carrinho,
+            Model model ) {
+
+        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow();
+        carrinho.limpar();
+
+        for(ItemPedido  itemPedido:pedido.getItensPedido()){
+            carrinho.adicionarItem((itemPedido));
+        }
+
+        return "cliente-carrinho";
+
     }
 
 }

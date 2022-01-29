@@ -24,6 +24,8 @@ public class ItemPedido implements Serializable {
 
     @EmbeddedId
     @EqualsAndHashCode.Include
+//    chave composta PK
+//    ItemPedidoPK - vai ser transformado em 2 colunas na tabela (EmbeddedId)
     private ItemPedidoPK id;
 
     @NotNull
