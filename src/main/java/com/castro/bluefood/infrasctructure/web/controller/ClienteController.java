@@ -5,6 +5,8 @@ import com.castro.bluefood.application.sevice.RestauranteService;
 import com.castro.bluefood.application.sevice.ValidationException;
 import com.castro.bluefood.domain.cliente.Cliente;
 import com.castro.bluefood.domain.cliente.ClienteRepository;
+import com.castro.bluefood.domain.pedido.Pedido;
+import com.castro.bluefood.domain.pedido.PedidoRepository;
 import com.castro.bluefood.domain.restaurante.*;
 import com.castro.bluefood.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class ClienteController {
     @Autowired
     private RestauranteService restauranteService;
 
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
     @GetMapping(path = "/home")
     public String home(Model model){
 
@@ -47,6 +52,9 @@ public class ClienteController {
 
         //pra estar disponível na home desde o início
         model.addAttribute("searchFilter",new SearchFilter());
+
+        List<Pedido> pedidos = pedidoRepository.listPedidosByClientes(SecurityUtils.loggedCliente().getId());
+        model.addAttribute("pedidos",pedidos);
 
         return "cliente-home";
     }
