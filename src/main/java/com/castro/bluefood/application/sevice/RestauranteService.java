@@ -37,6 +37,8 @@ public class RestauranteService {
         if(res.getId()!=null){
             Restaurante restauranteDB = restauranteRepository.findById(res.getId()).orElseThrow();
             res.setSenha(restauranteDB.getSenha());
+            res.setLogotipo(restauranteDB.getLogotipo());
+            restauranteRepository.save(res);
 
         }else{
             res.encryptPassword();
