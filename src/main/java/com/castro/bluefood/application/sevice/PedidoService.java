@@ -1,6 +1,8 @@
 package com.castro.bluefood.application.sevice;
 
 import com.castro.bluefood.domain.pagamento.DadosCartao;
+import com.castro.bluefood.domain.pagamento.Pagamento;
+import com.castro.bluefood.domain.pagamento.PagamentoRepository;
 import com.castro.bluefood.domain.pagamento.StatusPagamento;
 import com.castro.bluefood.domain.pedido.*;
 import com.castro.bluefood.util.SecurityUtils;
@@ -25,8 +27,8 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
-//    @Autowired
-//    private PagamentoRepository pagamentoRepository;
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
 
 //pega esse Value do application.properties
     @Value("${bluefood.sbpay.url}")
@@ -82,12 +84,12 @@ public class PedidoService {
         if (statusPagamento != StatusPagamento.Autorizado) {
             throw new PagamentoException(statusPagamento.getDescricao());
         }
-//
-//        Pagamento pagamento = new Pagamento();
-//        pagamento.setData(LocalDateTime.now());
-//        pagamento.setPedido(pedido);
-//        pagamento.definirNumeroEBandeira(numCartao);
-//        pagamentoRepository.save(pagamento);
+
+        Pagamento pagamento = new Pagamento();
+        pagamento.setData(LocalDateTime.now());
+        pagamento.setPedido(pedido);
+        pagamento.definirNumeroEBandeira(numCartao);
+        pagamentoRepository.save(pagamento);
 
         return pedido;
     }
