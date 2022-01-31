@@ -1,5 +1,6 @@
 package com.castro.bluefood.infrasctructure.web.controller;
 
+import com.castro.bluefood.application.sevice.PagamentoException;
 import com.castro.bluefood.application.sevice.PedidoService;
 import com.castro.bluefood.domain.pedido.Carrinho;
 import com.castro.bluefood.domain.pedido.Pedido;
@@ -24,16 +25,16 @@ public class PagamentoController {
             SessionStatus sessionStatus,
             Model model) {
 
-//        try {
+        try {
             Pedido pedido = pedidoService.criarEPagar(carrinho, numCartao);
             sessionStatus.setComplete(); //limpa o carrinho, tira da sessao
-            //redirect pede pro navegador redirecionar
 
+            //redirect pede pro navegador redirecionar
             return "redirect:/cliente/pedido/view?pedidoId=" + pedido.getId();
 
-//        } catch (PagamentoException e) {
-//            model.addAttribute("msg", e.getMessage());
-//            return "cliente-carrinho";
-//        }
+        } catch (PagamentoException e) {
+            model.addAttribute("msg", e.getMessage());
+            return "cliente-carrinho";
+        }
     }
 }
