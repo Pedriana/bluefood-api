@@ -1,6 +1,7 @@
 package com.castro.bluefood.domain.pedido;
 
 import com.castro.bluefood.domain.cliente.Cliente;
+import com.castro.bluefood.domain.pagamento.Pagamento;
 import com.castro.bluefood.domain.restaurante.Restaurante;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

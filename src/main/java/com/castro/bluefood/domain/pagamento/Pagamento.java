@@ -20,11 +20,13 @@ import java.time.LocalDateTime;
 public class Pagamento implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //vai ser idPedido = id, que vai ser pk e fk da tabela pagamento
     private Integer id;
 
     @NotNull
     @OneToOne
+    //@MapsId - usando o Id do pedido pra ser pk Pagamento (id)
+    @MapsId
     private Pedido pedido;
 
     @NotNull
