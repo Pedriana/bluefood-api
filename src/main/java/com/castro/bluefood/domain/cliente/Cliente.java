@@ -31,5 +31,9 @@ public class Cliente extends Usuario {
     @Column(length = 8)
     private String cep;
 
+    public String getFormattedCep(){
+        return cep.substring(0,5)+"-"+cep.substring(5);
+    }
+
 
 }

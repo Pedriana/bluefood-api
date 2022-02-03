@@ -1,8 +1,10 @@
 package com.castro.bluefood.infrasctructure.web.controller;
 
+import com.castro.bluefood.application.sevice.RelatorioService;
 import com.castro.bluefood.application.sevice.RestauranteService;
 import com.castro.bluefood.application.sevice.ValidationException;
 import com.castro.bluefood.domain.cliente.Cliente;
+import com.castro.bluefood.domain.pedido.*;
 import com.castro.bluefood.domain.restaurante.*;
 import com.castro.bluefood.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,13 @@ public class RestauranteController {
     private RestauranteService restauranteService;
 
     @Autowired
+    private RelatorioService relatorioService;
+
+    @Autowired
     private RestauranteRepository restauranteRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @Autowired
     private CategoriaRestauranteRepository categoriaRestauranteRepository;
@@ -31,9 +39,15 @@ public class RestauranteController {
     private ItemCardapioRepository itemCardapioRepository;
 
     @GetMapping(path = "/home")
-    public String home(){
+    public String home(Model model){
+
+        Integer restauranteId = SecurityUtils.loggedRestaurante().getId();
+        List<Pedido> pedidos = pedidoRepository.findByRestaurante_IdOrderByDataDesc(restauranteId);
+        model.addAttribute("pedidos",pedidos);
+
         return "restaurante-home";
     }
+
 
     @GetMapping("/edit")
     public String edit(Model model){
@@ -113,6 +127,64 @@ public class RestauranteController {
 
         restauranteService.saveItemCardapio(itemCardapio);
         return "redirect:/restaurante/comidas";
+    }
+
+    @GetMapping(path = "/pedido")
+    private String viewPedido(
+            @RequestParam("pedidoId") Integer pedidoId,
+            Model model
+    ){
+        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow();
+        model.addAttribute("pedido",pedido);
+        return "restaurante-pedido";
+
+    }
+
+    @PostMapping(path = "/pedido/proximoStatus")
+    public String proximoStatus(
+            @RequestParam("pedidoId") Integer pedidoId,
+            Model model
+    ){
+        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow();
+        pedido.definirProximoStatus();
+        pedidoRepository.save(pedido);
+        model.addAttribute("pedido",pedido);
+        model.addAttribute("msg","Status alterando com sucesso");
+
+        return "restaurante-pedido";
+    }
+
+    @GetMapping(path = "/relatorio/pedidos")
+    public String relatorioPedidos(
+            @ModelAttribute("relatorioPedidoFilter")RelatorioPedidoFilter filter,
+            Model model
+            ){
+
+        Integer restauranteId = SecurityUtils.loggedRestaurante().getId();
+
+        List<Pedido> pedidos = relatorioService.listPedidos(restauranteId,filter);
+
+        model.addAttribute("pedidos",pedidos);
+        model.addAttribute("filter",filter);
+
+        return "restaurante-relatorio-pedidos";
+    }
+
+    @GetMapping(path = "/relatorio/itens")
+    public String relatorioItens(
+            @ModelAttribute("relatorioItemFilter") RelatorioItemFilter filter,
+            Model model
+    ){
+        Integer restauranteId = SecurityUtils.loggedRestaurante().getId();
+        List<ItemCardapio> itensCardapaio = itemCardapioRepository.findByRestaurante_IdOrderByNome(restauranteId);
+        model.addAttribute("itensCardapaio",itensCardapaio);
+
+        List<RelatorioItemFaturamento> itensCalculados = relatorioService.calcularFaturamentoItens(restauranteId,filter);
+        model.addAttribute("itensCalculados",itensCalculados);
+
+        model.addAttribute("relatorioItemFilter",filter);
+
+        return "restaurante-relatorio-itens";
     }
 
 }
