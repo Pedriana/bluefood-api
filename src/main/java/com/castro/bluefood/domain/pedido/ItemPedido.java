@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "intem_pedido")
+@Table(name = "item_pedido")
 public class ItemPedido implements Serializable {
 
     //usar chave composta PK

@@ -37,7 +37,7 @@
 		<br /><br />
 
 
-		<div th:each="item : ${pedido.itens}">
+		<div th:each="item : ${pedido.itensPedido}">
 			<span id="restauranteOpcaoTitulo4" th:text="${item.itemCardapio.nome}"></span><br />
 			<span id="restauranteOpcaoTaxa4" th:text="'Quantidade: ' + ${item.quantidade}"></span><br />
 			<span id="restauranteOpcaoTaxa5" th:text="${item.observacoes}"></span><br />

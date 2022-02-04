@@ -170,19 +170,19 @@ public class RestauranteController {
         return "restaurante-relatorio-pedidos";
     }
 
-    @GetMapping(path = "/relatorio/itens")
+    @GetMapping("/relatorio/itens")
     public String relatorioItens(
             @ModelAttribute("relatorioItemFilter") RelatorioItemFilter filter,
-            Model model
-    ){
+            Model model) {
         Integer restauranteId = SecurityUtils.loggedRestaurante().getId();
-        List<ItemCardapio> itensCardapaio = itemCardapioRepository.findByRestaurante_IdOrderByNome(restauranteId);
-        model.addAttribute("itensCardapaio",itensCardapaio);
 
-        List<RelatorioItemFaturamento> itensCalculados = relatorioService.calcularFaturamentoItens(restauranteId,filter);
-        model.addAttribute("itensCalculados",itensCalculados);
+        List<ItemCardapio> itensCardapio = itemCardapioRepository.findByRestaurante_IdOrderByNome(restauranteId);
+        model.addAttribute("itensCardapio", itensCardapio);
 
-        model.addAttribute("relatorioItemFilter",filter);
+        List<RelatorioItemFaturamento> itensCalculados = relatorioService.calcularFaturamentoItens(restauranteId, filter);
+        model.addAttribute("itensCalculados", itensCalculados);
+
+        model.addAttribute("relatorioItemFilter", filter);
 
         return "restaurante-relatorio-itens";
     }
