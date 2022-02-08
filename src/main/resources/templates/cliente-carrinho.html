@@ -7,7 +7,7 @@
 <body>
 	<div layout:fragment="content">
 		<!-- Cabeçalho - Fim -->
-		<div id="mensagemDeErro" th:if="${msg != null}">
+		<div class="mensagemDeErro" th:if="${msg != null}">
 			<span th:text="${msg}"></span><br />
 		</div>
 
@@ -19,7 +19,7 @@
 		
 
 		<div th:each="item : ${carrinho.itens}">
-			<span id="restauranteOpcaoTitulo2" th:text="${item.itemCardapio.nome}"></span><br/>
+			<span class="restauranteOpcaoTitulo" th:text="${item.itemCardapio.nome}"></span><br/>
 			<span id="restauranteOpcaoTaxa2" th:text="'Qtd: ' + ${item.quantidade}"></span><br/>
 			<span id="restauranteOpcaoTaxa3" th:text="${item.observacoes}"></span><br/>
 			<span id="restauranteOpcaoTaxa4"     th:text="${#numbers.formatCurrency(item.preco)}"></span><br/><br/>
@@ -32,28 +32,23 @@
 		</div>
 		<div th:if="!${carrinho.vazio()}">
 			<div>
-				<span id="restauranteOpcaoTitulo4">Taxa de entrega</span><br/>
+				<span class="restauranteOpcaoTitulo">Taxa de entrega</span><br/>
 				<span id="restauranteOpcaoTaxa8" th:text="${#numbers.formatCurrency(carrinho.restaurante.taxaEntrega)}"></span>
 			</div>
 			<br/><br/>
 
 			<div>
-				<span id="restauranteOpcaoTitulo5">Total</span><br/>
+				<span class="restauranteOpcaoTitulo">Total</span><br/>
 				<span id="restauranteOpcaoTaxa" th:text="${#numbers.formatCurrency(carrinho.getPrecoTotal(true))}"></span>
 			</div>
 			<br/><br/>
 
 			<br/><br/>
 
-<!--			<div>-->
-<!--				<span id="restauranteOpcaoTitulo">Cartão de Crédito</span><br/>-->
-<!--				<input type="text" id="inputLargo" onkeypress="return isNumberKey(event)">-->
-<!--			</div>-->
-<!--			<br/>-->
 
 			<form method="post" th:action="@{/cliente/pagamento/pagar}">
 				<div>
-					<span id="restauranteOpcaoTitulo">Cartão de Crédito</span><br />
+					<span class="restauranteOpcaoTitulo">Cartão de Crédito</span><br />
 					<input name="numCartao" type="text" id="inputLargo" onkeypress="return isNumberKey(event)" />
 				</div>
 				<br />

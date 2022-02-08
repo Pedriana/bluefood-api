@@ -21,7 +21,7 @@ th:with="link=@{/cliente/home}">
           <br/>
         </div>
 
-        <div id="divCategoriasComidaGeral">
+        <div class="divCategoriasComidaGeral">
           <div id="divCategoriasComidaOpcao" th:each="categoria : ${categorias}">
 <!--            pode tb submeter formulário usando click-->
             <a href="#" th:onclick="'searchRest(' + ${categoria.id} + ');'">

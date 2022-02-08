@@ -21,7 +21,7 @@
 				<br/>
 			</div>
 
-			<div id="divCategoriasComidaGeral">
+			<div class="divCategoriasComidaGeral">
 				<div id="divCategoriasComidaOpcao" th:each="categoria : ${categorias}">
 					<!--            pode tb submeter formulário usando click-->
 					<a href="#" th:onclick="'searchRest(' + ${categoria.id} + ');'">
@@ -49,14 +49,15 @@
 				</fieldset>
 
 				<br/>
+				<br/>
 			</div>
 
 		</form>
 			<div id="divRestaurantesGeral">
-				<div id="divRestaurantesOpcao" th:each="restaurante : ${restaurantes}">
+				<div class="divRestaurantesOpcao" th:each="restaurante : ${restaurantes}">
 					<a th:href="@{/cliente/restaurante} + '?restauranteId=' + ${restaurante.id}">
-						<img th:src="@{/images/logotipo/}+${restaurante.logotipo}" id="imgRestauranteOpcao"><br/>
-						<span id="restauranteOpcaoTitulo" th:text="${restaurante.nome}"></span><br/>
+						<img th:src="@{/images/logotipo/}+${restaurante.logotipo}" class="imgRestauranteOpcao"><br/>
+						<span class="restauranteOpcaoTitulo" th:text="${restaurante.nome}"></span><br/>
 						<span th:text="${restaurante.categoriasAsText}"></span><br/>
 						<span th:text="'Tempo médio de entrega: ' + ${restaurante.calcularTempoEntrega(cep)}+'m'"></span><br/>
 <!--						timeleaf tem um formatador de moedas: #numbers.formatCurrency -->

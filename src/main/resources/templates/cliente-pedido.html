@@ -3,10 +3,10 @@
 	  xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}"
 	  th:with="link=@{/cliente/home}">
 
-<!-- recebendo a variável ${link} como paramentro em cliente-home: add th:with="link=@{/cliente/home}>-->
+<!-- recebendo a variï¿½vel ${link} como paramentro em cliente-home: add th:with="link=@{/cliente/home}>-->
 <body>
 <div layout:fragment="content">
-		<!-- Cabeçalho - Fim -->
+		<!-- Cabeï¿½alho - Fim -->
 		
 		<div>
 			<h1>SEU PEDIDO</h1>
@@ -14,7 +14,7 @@
 		</div>
 		
 		
-		<div id="mensagemDeErro">
+		<div class="mensagemDeErro">
 			<span th:text="'STATUS:' + ${pedido.status.descricao}"></span>
 		</div><br/>
 		
@@ -26,7 +26,7 @@
 		
 
 		<div th:each="item : ${pedido.itensPedido}">
-			<span id="restauranteOpcaoTitulo2" th:text="${item.itemCardapio.nome}"></span><br/>
+			<span class="restauranteOpcaoTitulo" th:text="${item.itemCardapio.nome}"></span><br/>
 			<span id="restauranteOpcaoTaxa3" th:text="'Qtd:'+${item.quantidade}"></span><br/>
 			<span id="restauranteOpcaoTaxa4" th:text="${item.observacoes}"></span><br/>
 			<span id="restauranteOpcaoTaxa5" th:text="${#numbers.formatCurrency(item.preco)}"></span>
@@ -34,13 +34,13 @@
 		<br/><br/>
 
 		<div>
-			<span id="restauranteOpcaoTitulo4">Taxa de entrega</span><br/>
+			<span class="restauranteOpcaoTitulo">Taxa de entrega</span><br/>
 			<span id="restauranteOpcaoTaxa9" th:text="${#numbers.formatCurrency(pedido.taxaEntrega)}"></span>
 		</div>
 		<br/><br/>
 
 		<div>
-			<span id="restauranteOpcaoTitulo">Total</span><br/>
+			<span class="restauranteOpcaoTitulo">Total</span><br/>
 			<span id="restauranteOpcaoTaxa" th:text="${#numbers.formatCurrency(pedido.total)}"></span>
 		</div>
 		<br/><br/>

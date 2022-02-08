@@ -6,14 +6,14 @@
 <!-- recebendo a variável ${link} como paramentro em cliente-home: add th:with="link=@{/cliente/home}>-->
 <body>
 <div layout:fragment="content">
-    <div id="imagemDeErro">
+    <div class="imagemDeErro">
         <img th:src="@{/images/bf_erro.png}" />
     </div>
 
     <br />
     <br />
 
-    <div id="mensagemDeErro">Acesso não autorizado</div>
+    <div class="mensagemDeErro">Acesso não autorizado</div>
 </div>
 </body>
 </html>

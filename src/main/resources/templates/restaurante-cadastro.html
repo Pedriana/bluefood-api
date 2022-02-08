@@ -20,7 +20,7 @@
 
 						<label for="nome">Nome do Restaurante: </label><br />
 						<input type="text" id="nome" name="nome" placeholder="Nome..." th:field="*{nome}" th:classappend="${#fields.hasErrors('nome')} ? 'inputError' : ''" /><br />
-						<div id="mensagemDeErro2" th:if="${#fields.hasErrors('nome')}">
+						<div class="mensagemDeErro" th:if="${#fields.hasErrors('nome')}">
 							<span th:errors="*{nome}"></span>
 						</div>
 						<br /><br />
@@ -81,7 +81,7 @@
 						<div th:if="${!editMode}">
 							<label for="senha">Senha: </label><br />
 							<input type="password" id="senha" name="senha" placeholder="Senha..." th:field="*{senha}" th:classappend="${#fields.hasErrors('senha')} ? 'inputError' : ''" /><br />
-							<div id="mensagemDeErro" th:if="${#fields.hasErrors('senha')}">
+							<div class="mensagemDeErro" th:if="${#fields.hasErrors('senha')}">
 								<span th:errors="*{senha}"></span>
 							</div>
 							<br /><br />

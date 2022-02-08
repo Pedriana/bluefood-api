@@ -25,20 +25,20 @@
 		<br />
 
 		<div id="divLarguraPadrao">
-			<span id="restauranteOpcaoTitulo2">Data</span><br />
+			<span class="restauranteOpcaoTitulo">Data</span><br />
 			<span id="restauranteOpcaoTaxa2" th:text="${#temporals.format(pedido.data, 'dd/MM/yyyy HH:mm')}"></span>
 		</div>
 		<br /><br />
 
 		<div id="divLarguraPadrao2">
-			<span id="restauranteOpcaoTitulo3" th:text="${pedido.cliente.nome}"></span><br />
+			<span class="restauranteOpcaoTitulo" th:text="${pedido.cliente.nome}"></span><br />
 			<span id="restauranteOpcaoTaxa3" th:text="'CEP: ' + ${pedido.cliente.formattedCep}"></span>
 		</div>
 		<br /><br />
 
 
 		<div th:each="item : ${pedido.itensPedido}">
-			<span id="restauranteOpcaoTitulo4" th:text="${item.itemCardapio.nome}"></span><br />
+			<span class="restauranteOpcaoTitulo" th:text="${item.itemCardapio.nome}"></span><br />
 			<span id="restauranteOpcaoTaxa4" th:text="'Quantidade: ' + ${item.quantidade}"></span><br />
 			<span id="restauranteOpcaoTaxa5" th:text="${item.observacoes}"></span><br />
 			<span id="restauranteOpcaoTaxa6" th:text="${#numbers.formatCurrency(item.itemCardapio.preco)}"></span>
@@ -46,13 +46,13 @@
 		<br /><br />
 
 		<div>
-			<span id="restauranteOpcaoTitulo5">Taxa de entrega</span><br />
+			<span class="restauranteOpcaoTitulo">Taxa de entrega</span><br />
 			<span id="restauranteOpcaoTaxa7" th:text="${#numbers.formatCurrency(pedido.taxaEntrega)}"></span>
 		</div>
 		<br /><br />
 
 		<div>
-			<span id="restauranteOpcaoTitulo">Total</span><br />
+			<span class="restauranteOpcaoTitulo">Total</span><br />
 			<span id="restauranteOpcaoTaxa" th:text="${#numbers.formatCurrency(pedido.total)}"></span>
 		</div>
 		<br /><br />

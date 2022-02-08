@@ -53,7 +53,7 @@
 				<div th:if="${!editMode}">
 					<label for="senha">Senha: </label><br />
 					<input type="password" id="senha" name="senha" placeholder="Senha..." th:field="*{senha}" th:classappend="${#fields.hasErrors('senha')} ? 'inputError' : ''" /><br />
-					<div id="mensagemDeErro" th:if="${#fields.hasErrors('senha')}">
+					<div class="mensagemDeErro" th:if="${#fields.hasErrors('senha')}">
 						<span th:errors="*{senha}"></span>
 					</div>
 					<br /><br />

@@ -8,7 +8,7 @@
 		<div>
 			<h1>Relatório de Itens</h1>
 			<form method="get" th:action="@{/restaurante/relatorio/itens}" th:object="${relatorioItemFilter}">
-				<fieldset id="fieldsetFiltros">
+				<fieldset class="fieldsetFiltros">
 					<legend>Filtros</legend>
 					<label for="numero">Item: </label><br />
 					<select  id="numero" th:field="*{itemId}">

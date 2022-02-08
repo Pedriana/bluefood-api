@@ -12,7 +12,7 @@
 		</div>
 
 		<div th:each="item : ${itensCardapio}">
-			<span id="restauranteOpcaoTitulo" th:text="${item.nome}"></span><br />
+			<span class="restauranteOpcaoTitulo" th:text="${item.nome}"></span><br />
 			<span th:text="${item.categoria}"></span><br />
 			<span th:text="${item.descricao}"></span><br />
 			<span th:text="${#numbers.formatCurrency(item.preco)}"></span><br />
@@ -26,26 +26,26 @@
 		</div>
 
 		<br />
-		<span id="restauranteOpcaoTitulo2">Nova comida:</span><br />
+		<span class="restauranteOpcaoTitulo">Nova comida:</span><br />
 		<form method="post" th:object="${itemCardapio}" th:action="@{/restaurante/comidas/cadastrar}" enctype="multipart/form-data">
 			<fieldset>
 				<input type="hidden" name="restaurante.id" th:value="${restaurante.id}" />
 
 				<label for="nome">Nome: </label><br />
 				<input type="text" id="nome" th:field="*{nome}" th:classappend="${#fields.hasErrors('nome')} ? 'inputError' : ''" /><br />
-				<div id="mensagemDeErro2" th:if="${#fields.hasErrors('nome')}">
+				<div class="mensagemDeErro" th:if="${#fields.hasErrors('nome')}">
 					<span th:errors="*{nome}"></span>
 				</div><br />
 
 				<label for="descricao">Descrição: </label><br />
 				<input type="text" id="descricao" th:field="*{descricao}" th:classappend="${#fields.hasErrors('descricao')} ? 'inputError' : ''" /><br />
-				<div id="mensagemDeErro6" th:if="${#fields.hasErrors('descricao')}">
+				<div class="mensagemDeErro" th:if="${#fields.hasErrors('descricao')}">
 					<span th:errors="*{descricao}"></span>
 				</div><br />
 
 				<label for="preco">Preço: </label><br />
 				<input type="text"id="preco" th:field="*{preco}" th:classappend="${#fields.hasErrors('preco')} ? 'inputError' : ''" /><br />
-				<div id="mensagemDeErro3" th:if="${#fields.hasErrors('preco')}">
+				<div class="mensagemDeErro" th:if="${#fields.hasErrors('preco')}">
 					<span th:errors="*{preco}"></span>
 				</div><br />
 
@@ -54,13 +54,13 @@
 
 				<label for="categoria">Categoria de comida: </label><br />
 				<input type="text" id="categoria" th:field="*{categoria}" th:classappend="${#fields.hasErrors('preco')} ? 'inputError' : ''" /><br />
-				<div id="mensagemDeErro4" th:if="${#fields.hasErrors('categoria')}">
+				<div class="mensagemDeErro" th:if="${#fields.hasErrors('categoria')}">
 					<span th:errors="*{categoria}"></span>
 				</div><br />
 
 				<label for="logotipo">Logotipo: </label><br>
 				<input type="file" id="logotipo" th:field="*{imagemFile}" placeholder="Selecionar..." th:classappend="${#fields.hasErrors('imagemFile')} ? 'inputError' : ''"><br />
-				<div id="mensagemDeErro5" th:if="${#fields.hasErrors('imagemFile')}">
+				<div class="mensagemDeErro" th:if="${#fields.hasErrors('imagemFile')}">
 					<span th:errors="*{imagemFile}"></span>
 				</div>
 				<br /><br />

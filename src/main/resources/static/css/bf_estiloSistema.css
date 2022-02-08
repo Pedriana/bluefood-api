@@ -41,7 +41,7 @@ img#imgIconeCarrinho
 	height: 50px;
 }
 
-div#divCategoriasComidaGeral
+div.divCategoriasComidaGeral
 {
 	overflow: hidden;
 	display: flex;
@@ -62,7 +62,7 @@ div#divCategoriasComidaOpcao
 	
 }
 
-div#divRestaurantesOpcao
+div.divRestaurantesOpcao
 {
 	background-color: #ffffff;
 	width: 400px;
@@ -83,7 +83,7 @@ img#imgCategoriaComida
 	height: 50%;
 }
 
-img#imgRestauranteOpcao
+img.imgRestauranteOpcao
 {
 	height: 130px;
 	
@@ -94,7 +94,7 @@ img#imgRestauranteBusca
 	height: 130px;
 }
 
-span#restauranteOpcaoTitulo
+span.restauranteOpcaoTitulo
 {
 	font-weight: bold;
 	text-transform: uppercase;
@@ -209,7 +209,7 @@ input#inputSelecionado
 	border-color: #1e9bde;
 }
 
-div#mensagemDeErro
+div.mensagemDeErro
 {
 	background-color: #d40000;
 	width: 400px;

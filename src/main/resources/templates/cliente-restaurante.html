@@ -9,7 +9,7 @@
 		
 		<div>
 			<img th:src="@{/images/logotipo/}+${restaurante.logotipo}" id="imgRestauranteBusca"><br/><br/>
-			<span id="restauranteOpcaoTitulo3" th:text="${restaurante.nome}"></span><br/>
+			<span class="restauranteOpcaoTitulo" th:text="${restaurante.nome}"></span><br/>
 			<span id="restauranteOpcaoCategoria" th:text="${restaurante.categoriasAsText}"></span><br/>
 			<span id="restauranteOpcaoTempo" th:text="'Tempo médio de entrega: ' + ${restaurante.calcularTempoEntrega(cep)}+'m'"></span><br/>
 			<span th:text="'Taxa de entrega: R$'+ ${#numbers.formatCurrency(restaurante.taxaEntrega)}"></span><br/>
@@ -40,9 +40,9 @@
 		</div>
 		
 		<div id="divCategoriasComidaGeral" th:each="item : ${itensCardapioDestaque}" style="margin-top?20px">
-			<div id="divRestaurantesOpcao" >
-				<img th:src="@{/images/comida/} + ${item.imagem} " id="imgRestauranteOpcao"><br/>
-				<span id="restauranteOpcaoTitulo" th:text="${item.nome}"></span><br/>
+			<div class="divRestaurantesOpcao" >
+				<img th:src="@{/images/comida/} + ${item.imagem} " class="imgRestauranteOpcao"><br/>
+				<span class="restauranteOpcaoTitulo" th:text="${item.nome}"></span><br/>
 				<span th:text="${item.descricao}"></span><br/>
 				<span th:text="${#numbers.formatCurrency(item.preco)}"></span><br/>
 				<form action="get" th:action="@{/cliente/carrinho/adicionar}">
@@ -70,10 +70,10 @@
 			<h1>Menu</h1>
 		</div>
 
-		<div id="divCategoriasComidaGeral2" th:each="item : ${itensCardapioNaoDestaque}" style="margin-top?20px">
-			<div id="divRestaurantesOpcao2" >
-				<img th:src="@{/images/comida/} + ${item.imagem} " id="imgRestauranteOpcao2"><br/>
-				<span id="restauranteOpcaoTitulo2" th:text="${item.nome}"></span><br/>
+		<div class="divCategoriasComidaGeral" th:each="item : ${itensCardapioNaoDestaque}" style="margin-top?20px">
+			<div class="divRestaurantesOpcao" >
+				<img th:src="@{/images/comida/} + ${item.imagem} " class="imgRestauranteOpcao"><br/>
+				<span class="restauranteOpcaoTitulo" th:text="${item.nome}"></span><br/>
 				<span th:text="${item.descricao}"></span><br/>
 				<span th:text="${#numbers.formatCurrency(item.preco)}"></span><br/>
 				<form action="get" th:action="@{/cliente/carrinho/adicionar}">
