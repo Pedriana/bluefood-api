@@ -1,6 +1,7 @@
 package com.castro.bluefood.application.sevice;
 
 import com.castro.bluefood.domain.pedido.*;
+import com.castro.bluefood.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class RelatorioService {
 
         if(pedidoId!=null){
             Pedido pedido = pedidoRepository.findByIdAndRestaurante_Id(pedidoId,restauranteId);
-            return List.of(pedido);
+            return CollectionUtils.listOf(pedido);
         }
 
         LocalDate dataInicial=filter.getDataInicial();
@@ -28,13 +29,13 @@ public class RelatorioService {
 
         if(dataInicial==null){
             //retorna uma lista vazia
-            return List.of();
+            return CollectionUtils.listOf();
         }
 
         if(dataFinal==null){
 //            assume a data atual
             dataFinal=LocalDate.now();
-            return List.of();
+            return CollectionUtils.listOf();
         }
 
         return pedidoRepository.findByDateInterval(restauranteId,dataInicial.atStartOfDay(),dataFinal.atTime(23,59,59));
@@ -48,7 +49,7 @@ public class RelatorioService {
         LocalDate dataFinal = filter.getDataFinal();
 
         if (dataInicial == null) {
-            return List.of();
+            return CollectionUtils.listOf();
         }
 
         if (dataFinal == null) {
