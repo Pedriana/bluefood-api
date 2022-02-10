@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class ClienteService {
 
@@ -25,7 +27,7 @@ public class ClienteService {
         }
 
         if(c.getId()!=null){
-            Cliente clienteDB = clienteRepository.findById(c.getId()).orElseThrow();
+            Cliente clienteDB = clienteRepository.findById(c.getId()).orElseThrow(NoSuchElementException::new);
             c.setSenha(clienteDB.getSenha());
         }else{
             c.encryptPassword();

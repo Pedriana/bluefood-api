@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping(path = "/cliente")
@@ -64,7 +65,7 @@ public class ClienteController {
         //editar o cliente que está logado
         Integer clienteId = SecurityUtils.loggedCliente().getId();
 
-        Cliente cliente = clienteRepository.findById(clienteId).orElseThrow();
+        Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(NoSuchElementException::new);
 
         model.addAttribute("cliente",cliente);
 
@@ -117,7 +118,7 @@ public class ClienteController {
                                   @RequestParam(value = "categoria",required = false) String categoria,
                                   Model model){
 
-        Restaurante restaurante = restauranteRepository.findById(restauranteId).orElseThrow();
+        Restaurante restaurante = restauranteRepository.findById(restauranteId).orElseThrow(NoSuchElementException::new);
         model.addAttribute("restaurante",restaurante);
         model.addAttribute("cep",SecurityUtils.loggedCliente().getCep());
 

@@ -38,8 +38,7 @@ public class PedidoService {
     private String sbPayToken;
 
 
-//    @SuppressWarnings("unchecked")
-
+    @SuppressWarnings("unchecked")
     //rollbackFor = PagamentoException.clas se ocorrer um erro em PagamentoExceptio, desfaz tudo
     @Transactional(rollbackFor = PagamentoException.class)
     public Pedido criarEPagar(Carrinho carrinho, String numCartao) throws PagamentoException {

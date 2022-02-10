@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -35,7 +36,7 @@ public class RestauranteService {
         }
 
         if(res.getId()!=null){
-            Restaurante restauranteDB = restauranteRepository.findById(res.getId()).orElseThrow();
+            Restaurante restauranteDB = restauranteRepository.findById(res.getId()).orElseThrow(NoSuchElementException::new);
             res.setSenha(restauranteDB.getSenha());
             res.setLogotipo(restauranteDB.getLogotipo());
             restauranteRepository.save(res);

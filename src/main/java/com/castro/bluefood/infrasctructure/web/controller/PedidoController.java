@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.NoSuchElementException;
+
 @Controller
 @RequestMapping("/cliente/pedido")
 public class PedidoController {
@@ -21,7 +23,7 @@ public class PedidoController {
             @RequestParam("pedidoId") Integer pedidoId,
             Model model){
 
-        Pedido pedido =pedidoRepository.findById(pedidoId).orElseThrow();
+        Pedido pedido =pedidoRepository.findById(pedidoId).orElseThrow(NoSuchElementException::new);
         model.addAttribute("pedido",pedido);
         return "cliente-pedido";
     }

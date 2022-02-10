@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.util.NoSuchElementException;
+
 @Controller
 @RequestMapping("/cliente/carrinho")
 //Quais atributos tem que ficar no model após várias requisições: @SessionAttributes("carrinho")
@@ -42,7 +44,7 @@ public class CarrinhoController {
             @ModelAttribute("carrinho") Carrinho carrinho,
             Model model
     ){
-        ItemCardapio itemCardapio = itemCardapioRepository.findById(itemId).orElseThrow();
+        ItemCardapio itemCardapio = itemCardapioRepository.findById(itemId).orElseThrow(NoSuchElementException::new);
 
         //carrinho tem que está ativo na sessão do usuário:
         try {
@@ -63,7 +65,7 @@ public class CarrinhoController {
             SessionStatus sessionStatus,
             Model model) {
 
-        ItemCardapio itemCardapio = itemCardapioRepository.findById(itemId).orElseThrow();
+        ItemCardapio itemCardapio = itemCardapioRepository.findById(itemId).orElseThrow(NoSuchElementException::new);
 
         carrinho.removerItem(itemCardapio);
 
@@ -81,7 +83,7 @@ public class CarrinhoController {
             @ModelAttribute("carrinho") Carrinho carrinho,
             Model model ) {
 
-        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow();
+        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(NoSuchElementException::new);
         carrinho.limpar();
 
         for(ItemPedido  itemPedido:pedido.getItensPedido()){
