@@ -44,8 +44,8 @@ dependencies {
 //	para receber a informação de datas que vem externa, da interface
 	runtimeOnly 'org.thymeleaf.extras:thymeleaf-extras-java8time'
 
-//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'com.h2database:h2'
 }
 
 test {
