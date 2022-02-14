@@ -1,5 +1,6 @@
 package com.castro.bluefood.service;
 
+import com.castro.bluefood.domain.restaurante.RestauranteRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -27,6 +28,9 @@ public class ClienteServiceTest {
     //MockBean não busca no banco, mas sim no que eu criei no código
     @MockBean
     private ClienteRepository clienteRepository;
+
+    @MockBean
+    private RestauranteRepository restauranteRepository;
 
     @Test
     public void testWhenDuplicateEmail() throws Exception{

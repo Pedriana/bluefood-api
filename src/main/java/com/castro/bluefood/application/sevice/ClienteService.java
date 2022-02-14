@@ -32,7 +32,7 @@ public class ClienteService {
         }else{
             c.encryptPassword();
         }
-        System.out.println("SEM Erro na validação");
+        System.out.println("SEM Erro na validação cliente");
         clienteRepository.save(c);
     }
 

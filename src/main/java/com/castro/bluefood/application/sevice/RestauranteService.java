@@ -48,7 +48,7 @@ public class RestauranteService {
             imageService.uploadLogotipo(res.getLogotipoFile(),res.getLogotipo());
 
         }
-        System.out.println("SEM Erro na validação");
+        System.out.println("SEM Erro na validação restaurante");
         restauranteRepository.save(res);
     }
 
